@@ -1,0 +1,7 @@
+*.pyc
+*.json
+*.sqlite
+local
+lib
+include
+bin
