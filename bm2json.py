@@ -62,6 +62,6 @@ with open('bookmarks.json', 'w') as f:
     json.dump({
         'links': links,
         'not_ok': not_ok,
-        'tags': set(alltags),
+        'tags': sorted(set(alltags)),
         'exceptions': exceptions
     }, f)
