@@ -29,7 +29,7 @@ for a in soup.find_all('a'):
     print('Processing url %s' % url)
 
     try:
-        response = requests.get(url, verify=False)
+        response = requests.get(url, verify=False, timeout=30)
     except Exception, err:
         exceptions['request'].append(url)
         print('Requesting url %s caused an exception %r' % (url, err))
