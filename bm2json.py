@@ -59,4 +59,9 @@ for a in soup.find_all('a'):
     alltags += tags
 
 with open('bookmarks.json', 'w') as f:
-    json.dump({'links': links, 'not_ok': not_ok, 'tags':tags}, f)
+    json.dump({
+        'links': links,
+        'not_ok': not_ok,
+        'tags': set(alltags),
+        'exceptions': exceptions
+    }, f)
