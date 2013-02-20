@@ -1,0 +1,4 @@
+requests
+requests_cache
+bs4
+extraction

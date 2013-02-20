@@ -1,0 +1,5 @@
+<ul class="thumbnails">
+{% for l in links %}
+<li class="span3"><a href="{{ l.url }}" class="thumbnail"><img src="{{ l.image }}" alt="{{ l.description }}"><h3>{{ l.title }}</h3></a></li>
+{% endfor %}
+</ul>

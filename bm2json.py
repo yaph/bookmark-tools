@@ -42,12 +42,15 @@ for a in soup.find_all('a'):
         print('No content for url %s' % url)
         continue
 
-    try:
-        extract = get_extract(response.text, url)
-    except Exception, err:
-        exceptions['extract'].append(url)
-        print('Extracting content from url %s caused an exception %r' % (url, err))
-        continue
+    if response.headers['content-type'].startswith('text/html'):
+        try:
+            extract = get_extract(response.text, url)
+        except Exception, err:
+            exceptions['extract'].append(url)
+            print('Extracting content from url %s caused an exception %r' % (url, err))
+            continue
+    else:
+        extract = {}
 
     tags = a.get('tags')
     if tags:
