@@ -1,4 +1,4 @@
 requests
-requests_cache
-bs4
+requests-cache
+python-bs4
 extraction
