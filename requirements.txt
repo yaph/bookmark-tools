@@ -1,4 +1,4 @@
 requests
 requests-cache
-python-bs4
+beautifulsoup4
 extraction
