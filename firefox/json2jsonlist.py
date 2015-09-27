@@ -37,8 +37,8 @@ class Bookmark():
 
 
 @click.command(help='Convert bookmarks json exported from FireFox to list of tagged urls.')
-@click.argument('input', type=click.File('rb'))
-@click.argument('output', type=click.File('wb'))
+@click.argument('input', type=click.File('r'))
+@click.argument('output', type=click.File('w'))
 def cli(input, output):
     bm = Bookmark()
     bookmarks = json.load(input)
