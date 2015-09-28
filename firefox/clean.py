@@ -6,17 +6,21 @@ import sys
 
 import requests
 import requests_cache
-import lassie
+
+from lassie import Lassie
 
 
 parser = argparse.ArgumentParser(description='Create HTML link list for given tag.')
 parser.add_argument('bmfile', help='Bookmarks file in JSON list format.')
 args = parser.parse_args()
 
-user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/43.0.2357.130 Chrome/43.0.2357.130 Safari/537.36'
 not_ok = []
 bookmarks = []
 requests_cache.configure('../cache/requests')
+user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/43.0.2357.130 Chrome/43.0.2357.130 Safari/537.36'
+headers = {'User-Agent': user_agent}
+l = Lassie()
+l.request_opts = {'headers': headers}
 
 
 with open(args.bmfile, 'r') as f:
@@ -39,15 +43,16 @@ for i, b in enumerate(data['bookmarks']):
         continue
 
     if resp.headers.get('content-type', '').startswith('text/html'):
-        summary = lassie.fetch(url)
-        b['title'] = summary.get('title', b['title'])
-        b['url'] = summary.get('url', b['url'])
+        summary = l.fetch(url)
+        b['title'] = summary.get('title', b['title']).strip()
+        b['url'] = summary.get('url', b['url']).strip()
 
     bookmarks.append(b)
 
+data['bookmarks'] = bookmarks
 
 with open('cleaned_' + args.bmfile, 'w') as f:
-    json.dump(bookmarks, f)
+    json.dump(data, f)
 
 with open('not_ok.json', 'w') as f:
     json.dump(not_ok, f)
