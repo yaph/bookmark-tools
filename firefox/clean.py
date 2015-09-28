@@ -38,7 +38,7 @@ for i, b in enumerate(data['bookmarks']):
         not_ok.append(b)
         continue
 
-    if resp['headers'].get('content-type', '').startswith('text/html'):
+    if resp.headers.get('content-type', '').startswith('text/html'):
         summary = lassie.fetch(url)
         b['title'] = summary.get('title', b['title'])
         b['url'] = summary.get('url', b['url'])
