@@ -5,8 +5,8 @@ import json
 import sys
 
 
-parser = argparse.ArgumentParser(description='tag2html - Create HTML link list for given tag.')
-parser.add_argument('bmfile', help='Bookmarks file in JSON format.')
+parser = argparse.ArgumentParser(description='Create HTML link list for given tag.')
+parser.add_argument('bmfile', help='Bookmarks file in JSON list format.')
 parser.add_argument('tag', help='The tag to generate a link list for.')
 args = parser.parse_args()
 
