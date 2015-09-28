@@ -27,7 +27,7 @@ for i, b in enumerate(data['bookmarks']):
 
     print('#{}: {}'.format(i, url))
     try:
-        b['status'] = requests.head(url).status_code
+        b['status'] = requests.head(url, timeout=10).status_code
     except Exception as err:
         print('Request failed: {}'.format(err))
         continue
