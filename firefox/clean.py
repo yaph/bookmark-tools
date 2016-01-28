@@ -2,7 +2,6 @@
 # coding: utf-8
 import argparse
 import json
-import sys
 
 import requests
 import requests_cache
@@ -10,7 +9,7 @@ import requests_cache
 from lassie import Lassie
 
 
-parser = argparse.ArgumentParser(description='Create HTML link list for given tag.')
+parser = argparse.ArgumentParser(description='Separates URLs with 200 status code from those without.')
 parser.add_argument('bmfile', help='Bookmarks file in JSON list format.')
 args = parser.parse_args()
 
@@ -43,9 +42,12 @@ for i, b in enumerate(data['bookmarks']):
         continue
 
     if resp.headers.get('content-type', '').startswith('text/html'):
-        summary = l.fetch(url)
-        b['title'] = summary.get('title', b['title']).strip()
-        b['url'] = summary.get('url', b['url']).strip()
+        try:
+            summary = l.fetch(url)
+            b['title'] = summary['title'].strip()
+            b['url'] = summary['url'].strip()
+        except Exception as err:
+            print('Fetching {} failed with error:\n{}'.format(url, err))
 
     bookmarks.append(b)
 
