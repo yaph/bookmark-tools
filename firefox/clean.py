@@ -15,11 +15,14 @@ args = parser.parse_args()
 
 not_ok = []
 bookmarks = []
+
 requests_cache.configure('../cache/requests')
 user_agent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/43.0.2357.130 Chrome/43.0.2357.130 Safari/537.36'
 headers = {'User-Agent': user_agent}
 l = Lassie()
 l.request_opts = {'headers': headers}
+webclient = requests.Session()
+webclient.headers.update(headers)
 
 
 with open(args.bmfile, 'r') as f:
@@ -32,7 +35,7 @@ for i, b in enumerate(data['bookmarks']):
 
     print('#{}: {}'.format(i, url))
     try:
-        resp = requests.head(url, timeout=10, headers={'User-Agent': user_agent})
+        resp = webclient.head(url, timeout=10, headers={'User-Agent': user_agent})
         b['status'] = resp.status_code
     except Exception as err:
         print('Request failed: {}'.format(err))
