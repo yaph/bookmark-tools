@@ -41,6 +41,10 @@ for i, b in enumerate(data['bookmarks']):
         not_ok.append(b)
         continue
 
+    # Follow redirects one hop.
+    if resp.is_redirect:
+        url = resp.headers['Location']
+
     if resp.headers.get('content-type', '').startswith('text/html'):
         try:
             summary = l.fetch(url)
