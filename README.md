@@ -3,6 +3,11 @@ bookmark-tools
 
 Command line tools to work with bookmark data from browsers and services.
 
+## Pandoc Steps
+
+* Export bookmarks as HTML in bookmarks manger
+* run html2md.sh
+
 ## FireFox Steps
 
 * Export bookmarks as JSON in bookmarks manger
